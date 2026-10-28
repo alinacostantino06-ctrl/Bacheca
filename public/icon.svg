@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Icona provvisoria: croce dorata su cerchio azzurro con bordo panna -->
+  <rect width="512" height="512" rx="112" fill="#fbf7ee"/>
+  <circle cx="256" cy="256" r="210" fill="#2f6ea8"/>
+  <circle cx="256" cy="256" r="196" fill="none" stroke="#c9a227" stroke-width="8"/>
+  <g stroke="#e8d38a" stroke-width="6" stroke-linecap="round" opacity=".55">
+    <line x1="256" y1="256" x2="256" y2="90"/>
+    <line x1="256" y1="256" x2="373" y2="139"/>
+    <line x1="256" y1="256" x2="139" y2="139"/>
+    <line x1="256" y1="256" x2="400" y2="256"/>
+    <line x1="256" y1="256" x2="112" y2="256"/>
+  </g>
+  <rect x="230" y="110" width="52" height="300" rx="10" fill="#c9a227"/>
+  <rect x="160" y="180" width="192" height="52" rx="10" fill="#c9a227"/>
+  <rect x="240" y="120" width="12" height="280" rx="6" fill="#e8d38a"/>
+</svg>

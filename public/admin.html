@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Area riservata · Bacheca Parrocchiale Santa Maria delle Grazie</title>
+  <meta name="theme-color" content="#2f6ea8">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="header">
+    <img src="/icon.svg" alt="">
+    <div class="sopratitolo">Bacheca Parrocchiale</div>
+    <h1>Santa Maria delle Grazie</h1>
+    <div class="ornamento">✦ ✦ ✦</div>
+    <nav class="nav-principale" aria-label="Sezioni">
+      <a href="/" class="nav-btn">Bacheca</a>
+      <a href="/admin.html" class="nav-btn attivo" aria-current="page">Area riservata</a>
+    </nav>
+  </header>
+
+  <main class="container stretta" id="contenuto">
+    <p class="vuoto" id="caricamento">Caricamento…</p>
+
+    <!-- Accesso con email e password -->
+    <form id="login" class="scheda stretto nascosto">
+      <h2>Accedi</h2>
+      <p class="nota">Possono accedere solo le persone abilitate dal parroco. Se hai dimenticato la password, chiedi a lui di reimpostarla.</p>
+      <label for="l-email">Email</label>
+      <input type="email" id="l-email" required autocomplete="username" inputmode="email">
+      <label for="l-pass">Password</label>
+      <input type="password" id="l-pass" required autocomplete="current-password">
+      <div class="azioni"><button class="btn" id="l-invia">Entra</button></div>
+      <div class="errore" id="l-err"></div>
+    </form>
+
+    <!-- Pannello -->
+    <section id="pannello" class="nascosto">
+      <div class="barra">
+        <div class="schede" id="schede">
+          <button class="chip attivo" data-tab="t-avvisi">Avvisi</button>
+          <button class="chip" data-tab="t-utenti" id="tab-utenti">Utenti e ruoli</button>
+          <button class="chip" data-tab="t-profilo">Profilo</button>
+        </div>
+        <div class="utente">
+          <span id="benvenuto" class="nota"></span>
+          <button class="btn chiaro piccolo" id="esci">Esci</button>
+        </div>
+      </div>
+
+      <!-- Avvisi -->
+      <div id="t-avvisi">
+        <form id="f-post" class="scheda">
+          <h2 id="f-titolo">Nuovo avviso</h2>
+          <label for="p-title">Titolo</label>
+          <input type="text" id="p-title" required maxlength="120">
+          <div class="riga">
+            <div>
+              <label for="p-cat">Categoria</label>
+              <select id="p-cat"></select>
+            </div>
+            <div>
+              <label for="p-event">Data evento (facoltativa)</label>
+              <input type="datetime-local" id="p-event">
+            </div>
+          </div>
+          <label for="p-body">Testo</label>
+          <textarea id="p-body" maxlength="5000"></textarea>
+          <div class="riga">
+            <div>
+              <label for="p-exp">Togli dalla bacheca dopo il (facoltativo)</label>
+              <input type="date" id="p-exp">
+            </div>
+            <div>
+              <label for="p-img">Immagine (facoltativa)</label>
+              <input type="file" id="p-img" accept="image/*">
+              <img id="p-prev" class="anteprima-img nascosto" alt="">
+              <label class="check nascosto" id="p-rm-wrap"><input type="checkbox" id="p-rm"> Rimuovi immagine</label>
+            </div>
+          </div>
+          <fieldset class="aree">
+            <legend>Allegati (facoltativi)</legend>
+            <div id="a-lista" class="allegati-modulo"></div>
+            <div class="riga">
+              <div>
+                <label for="a-link-nome">Titolo del link</label>
+                <input type="text" id="a-link-nome" maxlength="100" placeholder="es. Programma della festa">
+              </div>
+              <div>
+                <label for="a-link-url">Indirizzo del link</label>
+                <input type="url" id="a-link-url" placeholder="https://…" inputmode="url">
+              </div>
+            </div>
+            <div class="azioni"><button type="button" class="btn chiaro piccolo" id="a-link-add">+ Aggiungi link</button></div>
+            <label for="a-file">PDF o musica (max 20 MB ciascuno)</label>
+            <input type="file" id="a-file" accept="application/pdf,.pdf,audio/*" multiple>
+          </fieldset>
+          <label class="check"><input type="checkbox" id="p-pin"> Metti in evidenza</label>
+          <div class="azioni">
+            <button class="btn oro" id="p-save">Pubblica</button>
+            <button type="button" class="btn chiaro nascosto" id="p-cancel">Annulla modifica</button>
+          </div>
+          <div class="errore" id="p-err"></div>
+        </form>
+
+        <div class="scheda">
+          <h2>Avvisi pubblicati</h2>
+          <div class="elenco" id="lista-avvisi"></div>
+        </div>
+      </div>
+
+      <!-- Utenti e ruoli (solo proprietario) -->
+      <div id="t-utenti" class="nascosto">
+        <form id="f-user" class="scheda">
+          <h2 id="u-titolo">Abilita una persona</h2>
+          <p class="nota">Crea l'accesso per chi deve gestire la bacheca: entrerà con l'email e la password che scegli qui, e potrà poi cambiarla dal suo profilo. Tu hai sempre accesso a tutto. Un <strong>amministratore</strong> gestisce gli avvisi di tutte le aree; un <strong>responsabile</strong> ha accesso completo solo alle aree che scegli (ad esempio l'Oratorio).</p>
+          <div class="riga">
+            <div>
+              <label for="u-email">Email</label>
+              <input type="email" id="u-email" required autocomplete="off" inputmode="email">
+            </div>
+            <div>
+              <label for="u-name">Nome visualizzato</label>
+              <input type="text" id="u-name" required maxlength="80">
+            </div>
+          </div>
+          <div id="u-pass-wrap">
+            <label for="u-pass">Password provvisoria (almeno 8 caratteri)</label>
+            <input type="text" id="u-pass" minlength="8" autocomplete="off" spellcheck="false">
+            <p class="nota">Comunicala tu alla persona.</p>
+          </div>
+          <label for="u-role">Ruolo</label>
+          <select id="u-role">
+            <option value="amministratore">Amministratore · tutte le aree</option>
+            <option value="responsabile">Responsabile · solo alcune aree</option>
+          </select>
+          <fieldset id="u-areas-wrap" class="aree nascosto">
+            <legend>Aree che può gestire</legend>
+            <div id="u-areas"></div>
+          </fieldset>
+          <div class="azioni">
+            <button class="btn" id="u-save">Abilita</button>
+            <button type="button" class="btn chiaro nascosto" id="u-cancel">Annulla modifica</button>
+          </div>
+          <div class="errore" id="u-err"></div>
+        </form>
+        <!-- Messaggio pronto da mandare alla persona (WhatsApp, SMS, email…) -->
+        <div id="u-invito" class="scheda invito nascosto">
+          <h2>Accesso pronto da inviare</h2>
+          <p class="nota">Manda questo messaggio alla persona. Dopo il primo accesso, sul suo telefono la bacheca mostrerà anche il pulsante <strong>Area riservata</strong>.</p>
+          <textarea id="u-msg" readonly rows="10"></textarea>
+          <div class="azioni">
+            <button type="button" class="btn oro" id="u-condividi">Condividi…</button>
+            <button type="button" class="btn chiaro" id="u-copia">Copia</button>
+            <button type="button" class="btn chiaro" id="u-chiudi">Chiudi</button>
+          </div>
+          <div class="errore ok" id="u-msg-esito"></div>
+        </div>
+
+        <div class="scheda">
+          <h2>Persone abilitate</h2>
+          <div class="elenco" id="lista-utenti"></div>
+        </div>
+      </div>
+
+      <!-- Profilo -->
+      <form id="t-profilo" class="scheda stretto nascosto">
+        <h2>Cambia password</h2>
+        <label for="c-new">Nuova password (almeno 8 caratteri)</label>
+        <input type="password" id="c-new" required minlength="8" autocomplete="new-password">
+        <label for="c-rep">Ripeti la nuova password</label>
+        <input type="password" id="c-rep" required minlength="8" autocomplete="new-password">
+        <div class="azioni"><button class="btn">Salva</button></div>
+        <div class="errore" id="c-err"></div>
+      </form>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="/config.js"></script>
+  <script src="/common.js"></script>
+  <script src="/admin.js"></script>
+</body>
+</html>

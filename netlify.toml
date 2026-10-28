@@ -1,0 +1,4 @@
+# Netlify pubblica solo la cartella "public": è un sito statico, non serve nessuna compilazione.
+[build]
+  publish = "public"
+  command = ""

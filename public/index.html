@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bacheca Parrocchiale Santa Maria delle Grazie</title>
+  <meta name="description" content="Avvisi, celebrazioni e appuntamenti della Parrocchia Santa Maria delle Grazie">
+  <meta name="theme-color" content="#2f6ea8">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="header">
+    <img src="/icon.svg" alt="" id="logo">
+    <div class="sopratitolo">Bacheca Parrocchiale</div>
+    <h1>Santa Maria delle Grazie</h1>
+    <div class="ornamento">✦ ✦ ✦</div>
+    <p>Avvisi, celebrazioni e appuntamenti della comunità</p>
+    <!-- Visibile solo ai moderatori collegati -->
+    <nav class="nav-principale nascosto" id="nav-moderatori" aria-label="Sezioni">
+      <a href="/" class="nav-btn attivo" aria-current="page">Bacheca</a>
+      <a href="/admin.html" class="nav-btn">Area riservata</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <nav class="filtri" id="filtri" aria-label="Categorie"></nav>
+    <section class="avvisi" id="avvisi" aria-live="polite"><p class="vuoto">Caricamento…</p></section>
+  </main>
+
+  <footer class="piede">
+    <a href="/privacy.html">Privacy</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="/config.js"></script>
+  <script src="/common.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
